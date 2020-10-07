@@ -10,7 +10,8 @@ use Hackathon\Game\Result;
  * @author Oswald BLASSOU
  * Handling 3 case : 
  * - I'm losing I apply a strategy based on the most used choice by the opposents
- * - The opponents is scoring I  
+ * - The opponents is scoring I apply another strategy
+ * - or i'm just betting on the previous choice
  */
 class TepasiPlayer extends Player
 {
@@ -61,11 +62,6 @@ class TepasiPlayer extends Player
 
         $ennemyStat = $this->result->getStatsFor($this->opponentSide);
         $myStat = $this->result->getStatsFor($this->mySide);
-
-
-        // print_r($ennemyStat);
-        // print_r($this->getRecChoice($ennemyStat));
-
 
         if($ennemyStat["score"] > 0){
             $favoriteChoice = $this->getRecChoice($ennemyStat)["0"];
