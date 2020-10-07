@@ -8,6 +8,9 @@ use Hackathon\Game\Result;
  * Class TepasiPlayers
  * @package Hackathon\PlayerIA
  * @author Oswald BLASSOU
+ * Handling 3 case : 
+ * - I'm losing I apply a strategy based on the most used choice by the opposents
+ * - The opponents is scoring I  
  */
 class TepasiPlayer extends Player
 {
@@ -65,14 +68,6 @@ class TepasiPlayer extends Player
 
 
         if($ennemyStat["score"] > 0){
-            $favoriteChoice = $this->getRecChoice($ennemyStat)["0"];
-            if($favoriteChoice == "score"){
-                return $this->getWinningChoice($this->result->getLastChoiceFor($this->opponentSide));
-            }
-            return $this->getWinningChoice($favoriteChoice);
-        }
-
-        if($myStat["score"] < $ennemyStat["score"]) {
             if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
                 return parent::rockChoice();
             }
@@ -82,6 +77,15 @@ class TepasiPlayer extends Player
             if ($this->result->getLastChoiceFor($this->opponentSide)  == "rock"){
                 return parent::paperChoice();
             }
+        }
+
+        if($myStat["score"] < $ennemyStat["score"]) {
+
+            $favoriteChoice = $this->getRecChoice($ennemyStat)["0"];
+            if($favoriteChoice == "score"){
+                return $this->getWinningChoice($this->result->getLastChoiceFor($this->opponentSide));
+            }
+            return $this->getWinningChoice($favoriteChoice);
         }
 
         //print_r($this->result->getStats());
