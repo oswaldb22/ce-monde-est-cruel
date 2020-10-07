@@ -60,9 +60,16 @@ class TepasiPlayer extends Player
         $myStat = $this->result->getStatsFor($this->mySide);
 
 
+        // print_r($ennemyStat);
+        // print_r($this->getRecChoice($ennemyStat));
+
+
         if($ennemyStat["score"] > 0){
-           // $hisChoice = $ennemyStat["score"]
-           
+            $favoriteChoice = $this->getRecChoice($ennemyStat)["0"];
+            if($favoriteChoice == "score"){
+                return $this->getWinningChoice($this->result->getLastChoiceFor($this->opponentSide));
+            }
+            return $this->getWinningChoice($favoriteChoice);
         }
 
         if($myStat["score"] < $ennemyStat["score"]) {
@@ -116,6 +123,22 @@ class TepasiPlayer extends Player
         if ($choice  == "rock"){
             return parent::paperChoice();
         }
+    }
+
+    public function getMax($arr){
+        $max = -1;
+        foreach($arr as $value) {
+            if(is_numeric($value) && $value > $max){
+                $max = $value;
+            }
+        }
+        return $max;
+    }
+
+    public function getRecChoice($arr){
+        $max = $this->getMax($arr);
+        $t = array_keys($arr, $max);
+        return $t;
     }
 
     // public function getLastChoice($choice1, $choice2){
