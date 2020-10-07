@@ -7,7 +7,7 @@ use Hackathon\Game\Result;
 /**
  * Class TepasiPlayers
  * @package Hackathon\PlayerIA
- * @author YOUR NAME HERE
+ * @author Oswald BLASSOU
  */
 class TepasiPlayer extends Player
 {
@@ -40,9 +40,10 @@ class TepasiPlayer extends Player
         // -------------------------------------    -----------------------------------------------------
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
-
-
-        return parent::rockChoice();
+        if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
+            return parent::rockChoice();
+        }
+        return parent::paperChoice();
 
     }
 };
