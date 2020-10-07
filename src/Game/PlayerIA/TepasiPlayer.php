@@ -56,19 +56,42 @@ class TepasiPlayer extends Player
             }
         }
 
-        if($this->result->getLastChoiceFor($this->mySide) !== 0){
-            $lastChoice = $this->result->getLastScoreFor($this->mySide);
-            $ret = "";
-            if($lastChoice == "scissors"){
+        $ennemyStat = $this->result->getStatsFor($this->opponentSide);
+        $myStat = $this->result->getStatsFor($this->mySide);
+
+
+        if($ennemyStat["score"] > 0){
+           // $hisChoice = $ennemyStat["score"]
+           
+        }
+
+        if($myStat["score"] < $ennemyStat["score"]) {
+            if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
                 return parent::rockChoice();
             }
-            if($lastChoice == "paper"){
-                return  parent::scissorsChoice();
+            if ($this->result->getLastChoiceFor($this->opponentSide)  == "paper"){
+                return parent::scissorsChoice();
             }
-            if($lastChoice == "rock"){
+            if ($this->result->getLastChoiceFor($this->opponentSide)  == "rock"){
                 return parent::paperChoice();
             }
-        } 
+        }
+
+        //print_r($this->result->getStats());
+        
+        // if($this->result->getLastChoiceFor($this->mySide) !== 0){
+        //     $lastChoice = $this->result->getLastChoiceFor($this->mySide);
+        //     if($lastChoice == parent::scissorsChoice()){
+        //         return parent::rockChoice();
+        //     }
+        //     if($lastChoice == parent::paperChoice()){
+        //         return  parent::scissorsChoice();
+        //     }
+        //     if($lastChoice == parent::rockChoice()){
+        //         return parent::paperChoice();
+        //     }
+        // } 
+
 
         if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
             return parent::rockChoice();
@@ -82,4 +105,25 @@ class TepasiPlayer extends Player
 
         return parent::paperChoice();
     }
+
+    public function getWinningChoice($choice) {
+        if ($choice  == "scissors"){
+            return parent::rockChoice();
+        }
+        if ($choice  == "paper"){
+            return parent::scissorsChoice();
+        }
+        if ($choice  == "rock"){
+            return parent::paperChoice();
+        }
+    }
+
+    // public function getLastChoice($choice1, $choice2){
+    //     if ($choice1  == "rock" && $choice2 == "scissors"){
+    //         return parent::paperChoice();
+    //     }
+    //     if ($choice1  == "rock" && $choice2 == "scissors"){
+    //         return parent::paperChoice();
+    //     }
+    // }
 };
