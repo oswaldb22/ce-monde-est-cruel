@@ -40,11 +40,19 @@ class TepasiPlayer extends Player
         // -------------------------------------    -----------------------------------------------------
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
+        if($this->result->getNbRound() == 0){
+            return parent::rockChoice();
+        }
+
+
         if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
             return parent::rockChoice();
         }
         if ($this->result->getLastChoiceFor($this->opponentSide)  == "paper"){
             return parent::scissorsChoice();
+        }
+        if ($this->result->getLastChoiceFor($this->opponentSide)  == "rock"){
+            return parent::paperChoice();
         }
         return parent::paperChoice();
 
