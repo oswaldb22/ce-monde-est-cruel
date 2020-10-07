@@ -68,15 +68,11 @@ class TepasiPlayer extends Player
 
 
         if($ennemyStat["score"] > 0){
-            if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
-                return parent::rockChoice();
+            $favoriteChoice = $this->getRecChoice($ennemyStat)["0"];
+            if($favoriteChoice == "score"){
+                return $this->getWinningChoice($this->result->getLastChoiceFor($this->opponentSide));
             }
-            if ($this->result->getLastChoiceFor($this->opponentSide)  == "paper"){
-                return parent::scissorsChoice();
-            }
-            if ($this->result->getLastChoiceFor($this->opponentSide)  == "rock"){
-                return parent::paperChoice();
-            }
+            return $this->getWinningChoice($favoriteChoice);
         }
 
         if($myStat["score"] < $ennemyStat["score"]) {
