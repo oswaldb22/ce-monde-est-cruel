@@ -41,9 +41,34 @@ class TepasiPlayer extends Player
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
         if($this->result->getNbRound() == 0){
-            return parent::rockChoice();
+            return parent::paperChoice();
         }
 
+        if($this->result->getNbRound() == 1 && $this->result->getLastChoiceFor($this->mySide) == 0){
+            if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
+                return parent::rockChoice();
+            }
+            if ($this->result->getLastChoiceFor($this->opponentSide)  == "paper"){
+                return parent::scissorsChoice();
+            }
+            if ($this->result->getLastChoiceFor($this->opponentSide)  == "rock"){
+                return parent::paperChoice();
+            }
+        }
+
+        if($this->result->getLastChoiceFor($this->mySide) !== 0){
+            $lastChoice = $this->result->getLastScoreFor($this->mySide);
+            $ret = "";
+            if($lastChoice == "scissors"){
+                return parent::rockChoice();
+            }
+            if($lastChoice == "paper"){
+                return  parent::scissorsChoice();
+            }
+            if($lastChoice == "rock"){
+                return parent::paperChoice();
+            }
+        } 
 
         if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
             return parent::rockChoice();
@@ -54,7 +79,7 @@ class TepasiPlayer extends Player
         if ($this->result->getLastChoiceFor($this->opponentSide)  == "rock"){
             return parent::paperChoice();
         }
-        return parent::paperChoice();
 
+        return parent::paperChoice();
     }
 };
