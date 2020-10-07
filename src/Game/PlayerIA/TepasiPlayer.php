@@ -43,6 +43,9 @@ class TepasiPlayer extends Player
         if ($this->result->getLastChoiceFor($this->opponentSide)  == "scissors"){
             return parent::rockChoice();
         }
+        if ($this->result->getLastChoiceFor($this->opponentSide)  == "paper"){
+            return parent::scissorsChoice();
+        }
         return parent::paperChoice();
 
     }
